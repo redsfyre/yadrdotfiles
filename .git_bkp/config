@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[submodule "zsh/prezto"]
+	active = true
+	url = https://github.com/sorin-ionescu/prezto.git
+[remote "origin"]
+	url = HOME:redsfyre/yadrdotfiles.git
+	fetch = +refs/heads/*:refs/remotes/github/*

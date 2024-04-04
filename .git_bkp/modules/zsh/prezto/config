@@ -1,0 +1,33 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	worktree = ../../../../zsh/prezto
+[remote "origin"]
+	url = https://github.com/sorin-ionescu/prezto.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[submodule "modules/autosuggestions/external"]
+	active = true
+	url = https://github.com/tarruda/zsh-autosuggestions
+[submodule "modules/completion/external"]
+	active = true
+	url = https://github.com/zsh-users/zsh-completions.git
+[submodule "modules/history-substring-search/external"]
+	active = true
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "modules/prompt/external/agnoster"]
+	active = true
+	url = https://github.com/agnoster/agnoster-zsh-theme.git
+[submodule "modules/prompt/external/powerline"]
+	active = true
+	url = https://github.com/davidjrice/prezto_powerline.git
+[submodule "modules/prompt/functions/pure"]
+	active = true
+	url = https://github.com/sindresorhus/pure.git
+[submodule "modules/syntax-highlighting/external"]
+	active = true
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
