@@ -50,7 +50,7 @@ alias update_theme="git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerle
  DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
@@ -79,7 +79,7 @@ alias update_theme="git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerle
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git kubectl oc sudo zsh-completions zsh-syntax-highlighting history-substring-search zsh-autosuggestions zsh-z systemadmin)
+plugins=(git kubectl oc sudo zsh-completions zsh-syntax-highlighting history-substring-search zsh-autosuggestions zsh-z systemadmin aws)
 
 
 #zsh-kubectl-prompt
@@ -116,7 +116,9 @@ export ARCHFLAGS="-arch x86_64"
 
 ### CPU turboboost enable disable commands
 #alias noturbo="echo '0' | sudo tee /sys/devices/system/cpu/cpufreq/boost"
+alias noturbo="echo '1' | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo"
 #alias turbo="echo '1' | sudo tee /sys/devices/system/cpu/cpufreq/boost"
+alias turbo="echo '0' | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo"
 
 alias check_q30_bat="/home/yyildirim/Documents/repos/HOME/Bluetooth_Headset_Battery_Level/bluetooth_battery.py 88:D0:39:D6:BF:3D"
 alias check_liberty4_bat="/home/yyildirim/Documents/repos/HOME/Bluetooth_Headset_Battery_Level/bluetooth_battery.py E8:EE:CC:4A:6A:2C"
@@ -206,9 +208,10 @@ function getimage() {search_string=$(echo $1|cut -d'-' -f2);kubectl get deployme
 # get zsh complete kubectl
 source <(kubectl completion zsh)
 source <(oc completion zsh)
-# alias kubectl=kubecolor
+alias kubectl=kubecolor
+alias oc="env KUBECTL_COMMAND=oc kubecolor"
 # make completion work with kubecolor
-# compdef kubecolor=kubectl
+compdef kubecolor=kubectl
 
 #compdef nala
 
@@ -265,10 +268,14 @@ function setgov ()
     echo "$1" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor 
 }
 
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/home/yyildirim/Downloads/Fortify_ScanCentral_Client_Latest_x64/bin
+
 # >>>> Vagrant command completion (start)
 #fpath=(/opt/vagrant/embedded/gems/gems/vagrant-2.3.7/contrib/zsh $fpath)
 #compinit
 # <<<<  Vagrant command completion (end)
 #source <(argocd completion zsh)
 #source ~/.clisnips.zsh
+complete -C 'aws_completer' aws
 source ~/.zsh_profile

@@ -1,16 +1,15 @@
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'readonly', 'filename', 'modified','epoch_utc' ] ]
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'fugitive': 'MyFugitive',
       \   'readonly': 'MyReadonly',
       \   'filename': 'MyFilename',
-      \   'epoch_utc': 'EpochToUTCLightline',
       \ },
-      \ 'separator': { 'left': '', 'right': '' },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
       \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
       \ }
 
@@ -25,8 +24,8 @@ function! MyReadonly()
 endfunction
 
 function! MyFugitive()
-  if exists("*FugitiveHead")
-    let _ = FugitiveHead()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
     return strlen(_) ? '⭠ '._ : ''
   endif
   return ''
@@ -37,20 +36,5 @@ function! MyFilename()
        \ ('' != expand('%') ? expand('%') : '[NoName]')
 endfunction
 
-function! EpochToUTCLightline()
-    let l:epoch = expand('<cword>')
-    if l:epoch !~ '^\d\+$'
-        return ''
-    endif
-    let l:utc_time = system('python3 -c "from datetime import datetime; import sys; print(datetime.utcfromtimestamp(' . l:epoch . ').strftime(''%Y-%m-%d %H:%M:%S UTC''))"')
-    let l:utc_time = trim(l:utc_time)
-    return l:utc_time
-  endfunction
-
-" 1742576400
-
-
 " Use status bar even with single buffer
-set laststatus=3
-set noshowmode
-
+set laststatus=2
